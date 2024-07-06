@@ -1,6 +1,6 @@
 const { expect } = require('@playwright/test');
 const { test } = require('../fixture');
-const { currentOrderOnPage, sortArray } = require('./utils/utils');
+const { currentOrderOnPage, sortArray } = require('../utils/utils');
 
 const sortingTypeParams = [
     {

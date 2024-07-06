@@ -1,6 +1,6 @@
 const { expect } = require('@playwright/test');
 const { test } = require('../fixture');
-const { getRndInteger, getProductInfo } = require('./utils/utils');
+const { getRndInteger, getProductInfo } = require('../utils/utils');
 
 test.describe('Basic tests', () => {
     test('Verify random products in a cart', async ({loginPage, inventoryPage, shopingCartPage}) => {
