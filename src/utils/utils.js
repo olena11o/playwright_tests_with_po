@@ -30,25 +30,19 @@ export function sortArray(sortType, arrayToSort) {
 
 export function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
-  }
+}
 
-export async function getProductInfo ( itemLocator ) {
-    let product = new Object();
-    product.name;
-    product.description;
-    product.price;
-    
-    product.name = await itemLocator
-    .locator('[data-test="inventory-item-name"]')
-    .innerText();
+export function randomKeys(numberOfProducts) {
+    let productKeys = [];
+    let productKey;
 
-    product.description = await itemLocator
-    .locator('[data-test="inventory-item-desc"]')
-    .innerText();
-
-    product.price = await itemLocator
-    .locator('div.pricebar > div')
-    .innerText();
-
-    return product;
+    const numberOfProductsToSelect = getRndInteger(1, numberOfProducts);
+    for (let i = 1; i <= numberOfProductsToSelect;) {
+        productKey = getRndInteger(0, numberOfProducts - 1);
+        if (productKeys.includes(productKey) == false) {
+            productKeys.push(productKey);
+            i++;
+        } else i = i;
+    };
+    return productKeys
 }
