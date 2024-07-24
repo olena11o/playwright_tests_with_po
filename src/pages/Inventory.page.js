@@ -31,27 +31,6 @@ export class InventoryPage extends BaseSwagLabPage {
         return this.inventoryItems.locator('div.pricebar > div').allTextContents();
     }
 
-    async productInfoByID(id) {
-        let product = new Object();
-        product.name;
-        product.description;
-        product.price;
-        
-        product.name = await this.inventoryItems.nth(id)
-        .locator('[data-test="inventory-item-name"]')
-        .innerText();
-    
-        product.description = await this.inventoryItems.nth(id)
-        .locator('[data-test="inventory-item-desc"]')
-        .innerText();
-    
-        product.price = await this.inventoryItems.nth(id)
-        .locator('div.pricebar > div')
-        .innerText();
-    
-        return product;
-    }
-
     async addItemToCartByItemId(id) {
         await this.inventoryItems.nth(id)
         .filter({has: this.page.getByRole('button')})

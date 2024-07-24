@@ -1,4 +1,3 @@
-//import { test as setup } from '@playwright/test';
 import { test as setup } from '../fixture';
 
 const authFile = 'playwright/.auth/user.json';

@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker';
+
 export async function currentOrderOnPage(sortingType, inventoryPage) {
     let orderOnPage = [];
     if (sortingType == 'az' || sortingType == 'za') {
@@ -28,21 +30,27 @@ export function sortArray(sortType, arrayToSort) {
     return sortedArray;
 };
 
-export function getRndInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) ) + min;
+export function randomKeys(numberOfProducts) {
+    const randomCount = faker.number.int({ min: 1, max: numberOfProducts });
+    const maxCount = numberOfProducts - 1;
+    const randomKeys = faker.helpers.uniqueArray(() => faker.number.int({ min: 0, max: maxCount}), randomCount );
+    return randomKeys
 }
 
-export function randomKeys(numberOfProducts) {
-    let productKeys = [];
-    let productKey;
+export async function productInfoByID(id, itemsList) {
+    const product = {name: null, description: null, price: null};
+    
+    product.name = await itemsList.nth(id)
+    .locator('[data-test="inventory-item-name"]')
+    .innerText();
 
-    const numberOfProductsToSelect = getRndInteger(1, numberOfProducts);
-    for (let i = 1; i <= numberOfProductsToSelect;) {
-        productKey = getRndInteger(0, numberOfProducts - 1);
-        if (productKeys.includes(productKey) == false) {
-            productKeys.push(productKey);
-            i++;
-        } else i = i;
-    };
-    return productKeys
+    product.description = await itemsList.nth(id)
+    .locator('[data-test="inventory-item-desc"]')
+    .innerText();
+
+    product.price = await itemsList.nth(id)
+    .locator('[data-test="inventory-item-price"]')
+    .innerText();
+
+    return product;
 }
