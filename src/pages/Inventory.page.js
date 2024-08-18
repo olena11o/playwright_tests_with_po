@@ -41,4 +41,22 @@ export class InventoryPage extends BaseSwagLabPage {
     async sortBy(sortLocator) {
         await this.sortDropdown.selectOption(sortLocator);
     }
+
+    async productInfoByID(id) {
+        const product = {name: null, description: null, price: null};
+        
+        product.name = await this.inventoryItems.nth(id)
+        .locator('[data-test="inventory-item-name"]')
+        .innerText();
+    
+        product.description = await this.inventoryItems.nth(id)
+        .locator('[data-test="inventory-item-desc"]')
+        .innerText();
+    
+        product.price = await this.inventoryItems.nth(id)
+        .locator('[data-test="inventory-item-price"]')
+        .innerText();
+    
+        return product;
+    }
 }

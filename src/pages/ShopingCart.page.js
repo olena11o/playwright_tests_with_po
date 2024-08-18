@@ -26,4 +26,22 @@ export class ShopingCartPage extends BaseSwagLabPage {
     getCartItemsNames() {
         return this.cartItems.locator('[data-test="inventory-item-name"]').allTextContents();
     }
+
+    async productInfoByID(id) {
+        const product = {name: null, description: null, price: null};
+        
+        product.name = await this.cartItems.nth(id)
+        .locator('[data-test="inventory-item-name"]')
+        .innerText();
+    
+        product.description = await this.cartItems.nth(id)
+        .locator('[data-test="inventory-item-desc"]')
+        .innerText();
+    
+        product.price = await this.cartItems.nth(id)
+        .locator('[data-test="inventory-item-price"]')
+        .innerText();
+    
+        return product;
+    }
 }

@@ -36,21 +36,3 @@ export function randomKeys(numberOfProducts) {
     const randomKeys = faker.helpers.uniqueArray(() => faker.number.int({ min: 0, max: maxCount}), randomCount );
     return randomKeys
 }
-
-export async function productInfoByID(id, itemsList) {
-    const product = {name: null, description: null, price: null};
-    
-    product.name = await itemsList.nth(id)
-    .locator('[data-test="inventory-item-name"]')
-    .innerText();
-
-    product.description = await itemsList.nth(id)
-    .locator('[data-test="inventory-item-desc"]')
-    .innerText();
-
-    product.price = await itemsList.nth(id)
-    .locator('[data-test="inventory-item-price"]')
-    .innerText();
-
-    return product;
-}

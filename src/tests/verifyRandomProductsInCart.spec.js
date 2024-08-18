@@ -1,9 +1,9 @@
 const { expect } = require('@playwright/test');
 const { test } = require('../fixture');
-const { randomKeys, productInfoByID } = require('../utils/utils');
+const { randomKeys } = require('../utils/utils');
 
 test.describe('Basic tests', () => {
-    test('Verify random products in a cart', async ({loginPage, inventoryPage, shopingCartPage}) => {
+    test('Verify random products in a cart', async ({inventoryPage, shopingCartPage}) => {
         await inventoryPage.navigate();
 
         // Get random keys
@@ -14,7 +14,7 @@ test.describe('Basic tests', () => {
         let productsToSelect = [];        
 
         for (const el of productKeys) {
-            const productOnPage = await productInfoByID(el, inventoryPage.inventoryItems);
+            const productOnPage = await inventoryPage.productInfoByID(el);
             await inventoryPage.addItemToCartByItemId(el);
 
             productsToSelect.push(productOnPage);
@@ -31,7 +31,7 @@ test.describe('Basic tests', () => {
         let productsInCart = [];
 
         for (let i = 0; i <= productsToSelect.length-1; i++ ) {
-            const productOnPage = await productInfoByID(i, shopingCartPage.cartItems);
+            const productOnPage = await shopingCartPage.productInfoByID(i);
 
             productsInCart.push(productOnPage);
         };
